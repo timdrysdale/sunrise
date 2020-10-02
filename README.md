@@ -23,16 +23,28 @@ Check the system clock is correct (avoid sunrise at odd time!)
 ```
 git clone https://github.com/timdrysdale/sunrise.git
 cd sunrise
-chmod +x demo.py
-./demo.py
+./demo
 ```
 
 ## Running the daily sunrise
 ```
-chmod +x sunrise.py
-./sunrise.py
+./sunrise
 ```
 
+## Autostarting sunrise
+```
+sudo su
+cp sunrise /usr/bin/
+cp sunrise-blank /usr/bin/
+cp sunrise-demo /usr/bin/
+cp sunrise.service /lib/systemd/system
+pip install dmx485
+systemctl enable sunrise
+systemctl start sunrise
+exit
+```
+
+ 
 [logo]: ./img/logo.png "sunrise logo"
 
 

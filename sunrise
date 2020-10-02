@@ -9,6 +9,7 @@ Created on Thu Oct  1 18:19:53 2020
 import time
 import dmx
 import numpy as np
+from datetime import datetime as dt  
 
 sender = dmx.DMX_Serial(port="/dev/ttyUSB0")
 sender.start()
@@ -16,6 +17,8 @@ uni = bytes((0,)*512)
 ua = bytearray(uni)
 
 sender.set_data(uni)
+
+print("%s test run of light"%dt.now().strftime('%Y-%m-%d %H:%M:%S'))
 
 tpr = [0,0.1,0.5,1]
 rp  = [0,20,255,255]
@@ -56,15 +59,14 @@ while True:
     uni = bytes((0,)*512)
 
     sender.set_data(uni)
-    print("waiting for dawn")
+    print("%s waiting for dawn"%dt.now().strftime('%Y-%m-%d %H:%M:%S'))
     while waiting:
         t = time.localtime()
         if t.tm_hour == 7 and t.tm_min == 0:
             waiting = False
         time.sleep(30)
     
-    print("Dawn begins")   
-    
+    print("%s dawn begins"%dt.now().strftime('%Y-%m-%d %H:%M:%S'))
     
     for t in np.linspace(0,1,1000):
         
@@ -79,11 +81,12 @@ while True:
         ua[3] = w
         
         uni = bytes(ua)
+
         sender.set_data(uni)
         
         time.sleep(1)
+    print("%s day begins"%dt.now().strftime('%Y-%m-%d %H:%M:%S'))
     
-    print("Day begins")    
     waiting = True
     
     while waiting:
@@ -92,5 +95,7 @@ while True:
             waiting = False
         time.sleep(30)
             
-    print("Lights off for now")        
+    print("%s end of the daily show"%dt.now().strftime('%Y-%m-%d %H:%M:%S'))
            
+           
+

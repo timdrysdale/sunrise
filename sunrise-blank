@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Oct  1 18:19:53 2020
+
+@author: Timothy D Drysdale <timothy.d.drysdale@gmail.com>
+"""
+
+import time
+import dmx
+import numpy as np
+from datetime import datetime as dt
+
+sender = dmx.DMX_Serial(port="/dev/ttyUSB0")
+sender.start()
+uni = bytes((0,)*512)
+ua = bytearray(uni)
+
+sender.set_data(uni)
+
+print("%s Stopping, blanked lights"%dt.now().strftime('%Y-%m-%d %H:%M:%S'))        
+           
+while True:
+	time.sleep(30)

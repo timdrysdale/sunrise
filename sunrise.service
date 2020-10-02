@@ -1,0 +1,10 @@
+[Unit]
+Description=Sunrise DMX lighting service
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/sunrise 
+
+[Install]
+WantedBy=multi-user.target
